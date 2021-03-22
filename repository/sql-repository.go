@@ -99,7 +99,7 @@ func (s *SQLRepository) GetAllRepositories() ([]dataModel.RepositoryModel, error
 		}
 	}()
 	var model []dataModel.RepositoryModel
-	if err := tx.Create(&model).Error; err != nil {
+	if err := tx.Find(&model).Error; err != nil {
 		tx.Rollback()
 		return model, err
 	}
