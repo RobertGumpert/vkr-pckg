@@ -2,7 +2,7 @@ package textMetrics
 
 import (
 	"errors"
-	"vkr-pckg/textPreprocessing"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"sync"
 )
 

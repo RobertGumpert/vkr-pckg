@@ -1,9 +1,9 @@
 package repository
 
 import (
+	"github.com/RobertGumpert/vkr-pckg/dataModel"
+	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
 	"testing"
-	"vkr-pckg/dataModel"
-	"vkr-pckg/runtimeinfo"
 )
 
 var storageProvider = SQLCreateConnection(

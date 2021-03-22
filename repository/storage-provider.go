@@ -2,10 +2,10 @@ package repository
 
 import (
 	"fmt"
+	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
 	"gorm.io/driver/mysql"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
-	"vkr-pckg/runtimeinfo"
 )
 
 type TypeStorage int

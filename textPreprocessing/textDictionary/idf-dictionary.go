@@ -1,7 +1,7 @@
 package textDictionary
 
 import (
-	"vkr-pckg/textPreprocessing"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	concurrentMap "github.com/streamrail/concurrent-map"
 	"sync"
 )

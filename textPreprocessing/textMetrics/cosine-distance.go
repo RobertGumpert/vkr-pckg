@@ -2,11 +2,10 @@ package textMetrics
 
 import (
 	"errors"
-	"vkr-pckg/textPreprocessing"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"math"
 	"sync"
 )
-
 
 func CosineDistanceOnPairVectors(bagOfWords [][]float64) (float64, error) {
 	return calculateCosineDistanceInPair(bagOfWords[0], bagOfWords[1])
@@ -29,7 +28,7 @@ func linearCalculateCosineDistance(bagOfWords [][]float64) [][]float64 {
 			cosineDistance, err := calculateCosineDistanceInPair(
 				bagOfWords[i],
 				bagOfWords[j],
-				)
+			)
 			if err != nil {
 				matrixRow[j] = float64(-1)
 			} else {
@@ -43,7 +42,7 @@ func linearCalculateCosineDistance(bagOfWords [][]float64) [][]float64 {
 
 func parallelCalculateCosineDistance(bagOfWords [][]float64) [][]float64 {
 	var (
-		wg = new(sync.WaitGroup)
+		wg           = new(sync.WaitGroup)
 		cosineMatrix = make([][]float64, len(bagOfWords))
 	)
 	for i := 0; i < len(bagOfWords); i++ {

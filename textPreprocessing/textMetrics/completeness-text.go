@@ -1,10 +1,9 @@
 package textMetrics
 
 import (
-	"vkr-pckg/textPreprocessing"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"sync"
 )
-
 
 func CompletenessText(bagOfWords [][]float64, mode textPreprocessing.ThreadMode) []float64 {
 	if mode == textPreprocessing.ParallelMode {
@@ -43,8 +42,8 @@ func parallelCalculateCompletenessText(bagOfWords [][]float64) []float64 {
 }
 
 func calculateCompletenessText(vector []float64) float64 {
-	var(
-		completeness   = float64(0)
+	var (
+		completeness = float64(0)
 	)
 	for i := 0; i < len(vector); i++ {
 		vectorI := switchToFloat64(vector[i])
@@ -55,4 +54,3 @@ func calculateCompletenessText(vector []float64) float64 {
 	completeness = (completeness / float64(len(vector))) * 100
 	return completeness
 }
-

@@ -1,6 +1,6 @@
 package repository
 
-import "vkr-pckg/dataModel"
+import "github.com/RobertGumpert/vkr-pckg/dataModel"
 
 type IStorage interface {
 	HasEntities() error

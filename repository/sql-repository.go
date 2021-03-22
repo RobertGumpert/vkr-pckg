@@ -3,8 +3,8 @@ package repository
 import (
 	"encoding/json"
 	"errors"
-	"vkr-pckg/dataModel"
-	"vkr-pckg/runtimeinfo"
+	"github.com/RobertGumpert/vkr-pckg/dataModel"
+	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
 )
 
 type SQLRepository struct {

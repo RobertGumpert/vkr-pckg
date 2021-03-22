@@ -1,7 +1,7 @@
 package textDictionary
 
 import (
-	"github-gate/pckg/textPreprocessing"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"github.com/bbalet/stopwords"
 	concurrentMap "github.com/streamrail/concurrent-map"
 	"strings"

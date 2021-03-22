@@ -1,12 +1,12 @@
 package textDictionary
 
 import (
-	"vkr-pckg/runtimeinfo"
-	"vkr-pckg/textPreprocessing"
+	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"testing"
 )
 
-var(
+var (
 	testCorpus = []string{
 		// Vue
 		"Vue js is a progressive incrementally adoptable JavaScript framework for building UI on the web framework frontend javascript vue",
@@ -24,14 +24,13 @@ func TestFlowFullDictionary(t *testing.T) {
 	runtimeinfo.LogInfo(count)
 	runtimeinfo.LogInfo(vectorsOfWords)
 	for item := range dictionary.IterBuffered() {
-		runtimeinfo.LogInfo("[",item.Key, "] = [", item.Val, "]")
+		runtimeinfo.LogInfo("[", item.Key, "] = [", item.Val, "]")
 	}
 	//
 	dictionary, vectorsOfWords, count = FullDictionary(testCorpus, textPreprocessing.LinearMode)
 	runtimeinfo.LogInfo(count)
 	runtimeinfo.LogInfo(vectorsOfWords)
 	for item := range dictionary.IterBuffered() {
-		runtimeinfo.LogInfo("[",item.Key, "] = [", item.Val, "]")
+		runtimeinfo.LogInfo("[", item.Key, "] = [", item.Val, "]")
 	}
 }
-

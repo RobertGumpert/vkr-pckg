@@ -2,7 +2,7 @@ package textMetrics
 
 import (
 	"fmt"
-	"vkr-pckg/runtimeinfo"
+	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
 )
 
 func addPanic() {

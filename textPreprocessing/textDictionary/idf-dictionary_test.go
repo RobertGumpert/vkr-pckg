@@ -1,9 +1,9 @@
 package textDictionary
 
 import (
+	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"testing"
-	"vkr-pckg/runtimeinfo"
-	"vkr-pckg/textPreprocessing"
 )
 
 func TestFlowIDFDictionary(t *testing.T) {
