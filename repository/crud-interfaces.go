@@ -20,6 +20,7 @@ type IRepository interface {
 	GetRepositoryByName(name string) (dataModel.RepositoryModel, error)
 	GetRepositoryByID(repositoryId uint) (dataModel.RepositoryModel, error)
 	GetNearestRepositories(repositoryId uint) (dataModel.NearestRepositoriesJSON, error)
+	GetAllRepositories() ([]dataModel.RepositoryModel, error)
 	//
 	// ISSUE
 	//

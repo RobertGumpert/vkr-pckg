@@ -91,6 +91,21 @@ func (s *SQLRepository) GetNearestRepositories(repositoryId uint) (dataModel.Nea
 	return nearest, nil
 }
 
+func (s *SQLRepository) GetAllRepositories() ([]dataModel.RepositoryModel, error) {
+	tx := s.storage.SqlDB.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	var model []dataModel.RepositoryModel
+	if err := tx.Create(&model).Error; err != nil {
+		tx.Rollback()
+		return model, err
+	}
+	return model, tx.Commit().Error
+}
+
 func (s *SQLRepository) AddIssue(issue dataModel.IssueModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {
