@@ -1,14 +1,14 @@
 package textMetrics
 
 import (
-	"issue-indexer/pckg/runtimeinfo"
-	"issue-indexer/pckg/textPreprocessing"
-	"issue-indexer/pckg/textPreprocessing/textDictionary"
-	"issue-indexer/pckg/textPreprocessing/textVectorized"
 	"testing"
+	"vkr-pckg/runtimeinfo"
+	"vkr-pckg/textPreprocessing"
+	"vkr-pckg/textPreprocessing/textDictionary"
+	"vkr-pckg/textPreprocessing/textVectorized"
 )
 
-var(
+var (
 	testCorpus = []string{
 		// Vue
 		"Vue js is a progressive incrementally adoptable JavaScript framework for building UI on the web framework frontend javascript vue",

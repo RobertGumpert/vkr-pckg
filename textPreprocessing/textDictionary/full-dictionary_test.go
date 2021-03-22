@@ -1,8 +1,8 @@
 package textDictionary
 
 import (
-	"issue-indexer/pckg/runtimeinfo"
-	"issue-indexer/pckg/textPreprocessing"
+	"vkr-pckg/runtimeinfo"
+	"vkr-pckg/textPreprocessing"
 	"testing"
 )
 

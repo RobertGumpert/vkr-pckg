@@ -1,9 +1,9 @@
 package textDictionary
 
 import (
-	"issue-indexer/pckg/runtimeinfo"
-	"issue-indexer/pckg/textPreprocessing"
 	"testing"
+	"vkr-pckg/runtimeinfo"
+	"vkr-pckg/textPreprocessing"
 )
 
 func TestFlowIDFDictionary(t *testing.T) {
@@ -11,13 +11,13 @@ func TestFlowIDFDictionary(t *testing.T) {
 	runtimeinfo.LogInfo(count)
 	runtimeinfo.LogInfo(vectorsOfWords)
 	for item := range dictionary.IterBuffered() {
-		runtimeinfo.LogInfo("[",item.Key, "] = [", item.Val, "]")
+		runtimeinfo.LogInfo("[", item.Key, "] = [", item.Val, "]")
 	}
 	//
 	dictionary, vectorsOfWords, count = IDFDictionary(testCorpus, 2, textPreprocessing.LinearMode)
 	runtimeinfo.LogInfo(count)
 	runtimeinfo.LogInfo(vectorsOfWords)
 	for item := range dictionary.IterBuffered() {
-		runtimeinfo.LogInfo("[",item.Key, "] = [", item.Val, "]")
+		runtimeinfo.LogInfo("[", item.Key, "] = [", item.Val, "]")
 	}
 }

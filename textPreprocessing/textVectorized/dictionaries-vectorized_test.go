@@ -1,8 +1,8 @@
 package textVectorized
 
 import (
-	"issue-indexer/pckg/runtimeinfo"
-	"issue-indexer/pckg/textPreprocessing/textDictionary"
+	"vkr-pckg/runtimeinfo"
+	"vkr-pckg/textPreprocessing/textDictionary"
 	"testing"
 )
 

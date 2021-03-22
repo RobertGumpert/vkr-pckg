@@ -2,10 +2,10 @@ package textMetrics
 
 import (
 
-	"issue-indexer/pckg/runtimeinfo"
-	"issue-indexer/pckg/textPreprocessing"
-	"issue-indexer/pckg/textPreprocessing/textDictionary"
-	"issue-indexer/pckg/textPreprocessing/textVectorized"
+	"vkr-pckg/runtimeinfo"
+	"vkr-pckg/textPreprocessing"
+	"vkr-pckg/textPreprocessing/textDictionary"
+	"vkr-pckg/textPreprocessing/textVectorized"
 	"testing"
 )
 
