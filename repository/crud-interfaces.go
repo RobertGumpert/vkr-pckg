@@ -38,5 +38,6 @@ type IRepository interface {
 	AddKeyWord(keyWord string, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error)
 	UpdateKeyWord(keyWord string, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error)
 	GetKeyWord(keyWord string) (dataModel.RepositoriesKeyWordsModel, error)
+	GetAllKeyWords() ([]dataModel.RepositoriesKeyWordsModel, error)
 }
 
