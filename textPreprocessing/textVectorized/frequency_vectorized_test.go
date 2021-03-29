@@ -1,10 +1,10 @@
 package textVectorized
 
 import (
-	"testing"
 	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
 	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	"github.com/RobertGumpert/vkr-pckg/textPreprocessing/textDictionary"
+	"testing"
 )
 
 var (

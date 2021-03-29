@@ -1,9 +1,9 @@
 package textVectorized
 
 import (
+	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 	concurrentMap "github.com/streamrail/concurrent-map"
 	"sync"
-	"github.com/RobertGumpert/vkr-pckg/textPreprocessing"
 )
 
 func GetFrequencyMap(text []string) concurrentMap.ConcurrentMap {

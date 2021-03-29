@@ -3,6 +3,7 @@ package repository
 import (
 	"github.com/RobertGumpert/vkr-pckg/dataModel"
 	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
+	"strconv"
 	"testing"
 )
 
@@ -16,6 +17,7 @@ var storageProvider = SQLCreateConnection(
 	"5432",
 	"disable",
 )
+
 
 func connect() IRepository {
 	sqlRepository := NewSQLRepository(
@@ -141,3 +143,54 @@ func TestAddFlow(t *testing.T) {
 	}
 	runtimeinfo.LogInfo("Ok")
 }
+
+func BenchmarkAddKeyWords(b *testing.B) {
+	b.ReportAllocs()
+	db := connect()
+	for i := 0; i < b.N; i++ {
+		inc := strconv.Itoa(i)
+		key := "Key" + inc
+		_, _ = db.AddKeyWord(
+			key,
+			dataModel.RepositoriesIncludeKeyWordsJSON{
+				Repositories: []dataModel.RepositoryModel{
+					{
+						Name: key,
+					},
+				},
+			},
+		)
+	}
+}
+
+func BenchmarkReadKeyWords(b *testing.B) {
+	b.ReportAllocs()
+	db := connect()
+	for i := 0; i < b.N; i++ {
+		inc := strconv.Itoa(i)
+		key := "Key" + inc
+		_, _ = db.GetKeyWord(
+			key,
+		)
+	}
+}
+
+func BenchmarkUpdateKeyWords(b *testing.B) {
+	b.ReportAllocs()
+	db := connect()
+	for i := 0; i < b.N; i++ {
+		inc := strconv.Itoa(i)
+		key := "Update Key" + inc
+		_, _ = db.UpdateKeyWord(
+			key,
+			dataModel.RepositoriesIncludeKeyWordsJSON{
+				Repositories: []dataModel.RepositoryModel{
+					{
+						Name: key,
+					},
+				},
+			},
+		)
+	}
+}
+

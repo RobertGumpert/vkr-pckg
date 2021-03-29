@@ -61,6 +61,11 @@ func (s *SQLRepository) AddNearestRepositories(repositoryId uint, nearest dataMo
 	return tx.Commit().Error
 }
 
+func (s *SQLRepository) UpdateNearestRepositories(repositoryId uint, nearest dataModel.NearestRepositoriesJSON) error {
+	return nil
+}
+
+
 func (s *SQLRepository) GetRepositoryByName(name string) (dataModel.RepositoryModel, error) {
 	var repository dataModel.RepositoryModel
 	if err := s.storage.SqlDB.Where("name = ?", name).First(&repository).Error; err != nil {

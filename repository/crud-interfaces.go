@@ -17,6 +17,7 @@ type IRepository interface {
 	AddRepository(repository dataModel.RepositoryModel) error
 	AddRepositories(repositories []dataModel.RepositoryModel) error
 	AddNearestRepositories(repositoryId uint, nearest dataModel.NearestRepositoriesJSON) error
+	UpdateNearestRepositories(repositoryId uint, nearest dataModel.NearestRepositoriesJSON) error
 	GetRepositoryByName(name string) (dataModel.RepositoryModel, error)
 	GetRepositoryByID(repositoryId uint) (dataModel.RepositoryModel, error)
 	GetNearestRepositories(repositoryId uint) (dataModel.NearestRepositoriesJSON, error)
