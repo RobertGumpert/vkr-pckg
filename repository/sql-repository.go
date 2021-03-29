@@ -240,7 +240,7 @@ func (s *SQLRepository) GetKeyWord(keyWord string) (dataModel.RepositoriesKeyWor
 	return model, nil
 }
 
-func (s *SQLRepository)  GetAllKeyWords() ([]dataModel.RepositoriesKeyWordsModel, error) {
+func (s *SQLRepository) GetAllKeyWords() ([]dataModel.RepositoriesKeyWordsModel, error) {
 	return nil, nil
 }
 

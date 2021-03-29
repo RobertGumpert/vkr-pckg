@@ -67,5 +67,6 @@ type NearestRepositoriesModel struct {
 type RepositoriesKeyWordsModel struct {
 	gorm.Model
 	KeyWord      string `gorm:"not null; index:key_word,unique;"`
+	Position     int64
 	Repositories []byte `gorm:"not null;"`
 }
