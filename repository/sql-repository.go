@@ -111,6 +111,10 @@ func (s *SQLRepository) GetAllRepositories() ([]dataModel.RepositoryModel, error
 	return model, tx.Commit().Error
 }
 
+func (s *SQLRepository) RewriteAllNearestRepositories(repositoryId []uint, models []dataModel.NearestRepositoriesJSON) error {
+	return nil
+}
+
 func (s *SQLRepository) AddIssue(issue dataModel.IssueModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {
@@ -185,7 +189,7 @@ func (s *SQLRepository) GetNearestIssuesForRepository(repositoryId uint) ([]data
 	return model, nil
 }
 
-func (s *SQLRepository) AddKeyWord(keyWord string, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error) {
+func (s *SQLRepository) AddKeyWord(keyWord string, position int64, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error) {
 	var model dataModel.RepositoriesKeyWordsModel
 	bts, err := json.Marshal(repositories)
 	if err != nil {
@@ -209,7 +213,7 @@ func (s *SQLRepository) AddKeyWord(keyWord string, repositories dataModel.Reposi
 	return model, tx.Commit().Error
 }
 
-func (s *SQLRepository) UpdateKeyWord(keyWord string, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error) {
+func (s *SQLRepository) UpdateKeyWord(keyWord string, position int64, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error) {
 	var model dataModel.RepositoriesKeyWordsModel
 	bts, err := json.Marshal(repositories)
 	if err != nil {
@@ -242,6 +246,10 @@ func (s *SQLRepository) GetKeyWord(keyWord string) (dataModel.RepositoriesKeyWor
 
 func (s *SQLRepository) GetAllKeyWords() ([]dataModel.RepositoriesKeyWordsModel, error) {
 	return nil, nil
+}
+
+func (s *SQLRepository) RewriteAllKeyWords(models []dataModel.RepositoriesKeyWordsModel) error {
+	return nil
 }
 
 func (s *SQLRepository) HasEntities() error {

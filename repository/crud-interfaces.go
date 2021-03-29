@@ -22,6 +22,7 @@ type IRepository interface {
 	GetRepositoryByID(repositoryId uint) (dataModel.RepositoryModel, error)
 	GetNearestRepositories(repositoryId uint) (dataModel.NearestRepositoriesJSON, error)
 	GetAllRepositories() ([]dataModel.RepositoryModel, error)
+	RewriteAllNearestRepositories(repositoryId []uint, models []dataModel.NearestRepositoriesJSON) error
 	//
 	// ISSUE
 	//
@@ -35,9 +36,10 @@ type IRepository interface {
 	//
 	// KEYWORDS:
 	//
-	AddKeyWord(keyWord string, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error)
-	UpdateKeyWord(keyWord string, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error)
+	AddKeyWord(keyWord string, position int64, repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error)
+	UpdateKeyWord(keyWord string, position int64,  repositories dataModel.RepositoriesIncludeKeyWordsJSON) (dataModel.RepositoriesKeyWordsModel, error)
 	GetKeyWord(keyWord string) (dataModel.RepositoriesKeyWordsModel, error)
 	GetAllKeyWords() ([]dataModel.RepositoriesKeyWordsModel, error)
+	RewriteAllKeyWords(models []dataModel.RepositoriesKeyWordsModel) error
 }
 
