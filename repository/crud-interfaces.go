@@ -29,7 +29,7 @@ type IRepository interface {
 	AddIssue(issue *dataModel.IssueModel) error
 	AddIssues(issues []dataModel.IssueModel) error
 	AddNearestIssues(nearest dataModel.NearestIssuesModel) error
-	GetIssuesNotRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error)
+	GetIssuesBesidesGroupRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error)
 	GetIssueByID(issueId uint) (dataModel.IssueModel, error)
 	GetIssueRepository(repositoryId uint) ([]dataModel.IssueModel, error)
 	GetNearestIssuesForIssue(issueId uint) ([]dataModel.NearestIssuesModel, error)

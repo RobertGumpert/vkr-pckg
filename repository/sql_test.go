@@ -135,7 +135,7 @@ func TestAddFlow(t *testing.T) {
 		t.Fatal()
 	}
 	//
-	list, err = db.GetIssuesNotRepositories(repositories[0].ID, repositories[1].ID)
+	list, err = db.GetIssuesBesidesGroupRepositories(repositories[0].ID, repositories[1].ID)
 	if err != nil {
 		runtimeinfo.LogError(err)
 		t.Fatal()

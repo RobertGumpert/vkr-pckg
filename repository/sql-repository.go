@@ -165,7 +165,7 @@ func (s *SQLRepository) GetIssueByID(issueId uint) (dataModel.IssueModel, error)
 	return model, nil
 }
 
-func (s *SQLRepository) GetIssuesNotRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error) {
+func (s *SQLRepository) GetIssuesBesidesGroupRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error) {
 	var(
 		model []dataModel.IssueModel
 		id = make([]uint, 0)
