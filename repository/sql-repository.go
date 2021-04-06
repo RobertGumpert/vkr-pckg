@@ -11,6 +11,36 @@ type SQLRepository struct {
 	storage *ApplicationStorageProvider
 }
 
+func (s *SQLRepository) AddNumberIntersections(intersection *dataModel.NumberIssueIntersectionsModel) error {
+	tx := s.storage.SqlDB.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if err := tx.Create(intersection).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
+func (s *SQLRepository) GetNumberIntersectionsForRepository(repositoryID uint) ([]dataModel.NumberIssueIntersectionsModel, error) {
+	var intersections []dataModel.NumberIssueIntersectionsModel
+	if err := s.storage.SqlDB.Where("repository_id = ?", repositoryID).Find(&intersections).Error; err != nil {
+		return intersections, err
+	}
+	return intersections, nil
+}
+
+func (s *SQLRepository) GetNumberIntersectionsForPair(repositoryID, comparableRepositoryID uint) (dataModel.NumberIssueIntersectionsModel, error) {
+	var intersection dataModel.NumberIssueIntersectionsModel
+	if err := s.storage.SqlDB.Where("repository_id = ? AND comparable_repository_id = ?", repositoryID, comparableRepositoryID).Find(&intersection).Error; err != nil {
+		return intersection, err
+	}
+	return intersection, nil
+}
+
 func (s *SQLRepository) AddRepository(repository *dataModel.RepositoryModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {
@@ -284,6 +314,7 @@ func (s *SQLRepository) HasEntities() error {
 		&dataModel.NearestIssuesModel{},
 		&dataModel.NearestRepositoriesModel{},
 		&dataModel.RepositoriesKeyWordsModel{},
+		&dataModel.NumberIssueIntersectionsModel{},
 	}
 	for _, entity := range entities {
 		if exist := db.Migrator().HasTable(entity); !exist {
@@ -304,6 +335,9 @@ func (s *SQLRepository) CreateEntities() error {
 		&dataModel.RepositoryModel{},
 		&dataModel.IssueModel{},
 		&dataModel.NearestIssuesModel{},
+		&dataModel.NearestRepositoriesModel{},
+		&dataModel.RepositoriesKeyWordsModel{},
+		&dataModel.NumberIssueIntersectionsModel{},
 	); err != nil {
 		db.Rollback()
 		return err
@@ -324,6 +358,7 @@ func (s *SQLRepository) Migration() error {
 		&dataModel.NearestIssuesModel{},
 		&dataModel.NearestRepositoriesModel{},
 		&dataModel.RepositoriesKeyWordsModel{},
+		&dataModel.NumberIssueIntersectionsModel{},
 	); err != nil {
 		db.Rollback()
 		return err

@@ -43,5 +43,11 @@ type IRepository interface {
 	GetKeyWord(keyWord string) (dataModel.RepositoriesKeyWordsModel, error)
 	GetAllKeyWords() ([]dataModel.RepositoriesKeyWordsModel, error)
 	RewriteAllKeyWords(models []dataModel.RepositoriesKeyWordsModel) error
+	//
+	// ISSUE INTERSECTIONS
+	//
+	AddNumberIntersections(intersection *dataModel.NumberIssueIntersectionsModel) error
+	GetNumberIntersectionsForRepository(repositoryID uint) ([]dataModel.NumberIssueIntersectionsModel, error)
+	GetNumberIntersectionsForPair(repositoryID, comparableRepositoryID uint) (dataModel.NumberIssueIntersectionsModel, error)
 }
 

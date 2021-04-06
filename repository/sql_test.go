@@ -36,6 +36,7 @@ func TestMigration(t *testing.T) {
 	storageProvider.SqlDB.Exec("drop table nearest_issues_models cascade")
 	storageProvider.SqlDB.Exec("drop table nearest_repositories_models cascade")
 	storageProvider.SqlDB.Exec("drop table repositories_key_words_models cascade")
+	//storageProvider.SqlDB.Exec("drop table number_issue_intersections_models cascade")
 	_ = connect()
 }
 

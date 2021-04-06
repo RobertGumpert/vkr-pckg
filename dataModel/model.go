@@ -32,6 +32,9 @@ type RepositoryModel struct {
 	NearestIssuesOtherRepositories         []NearestIssuesModel       `gorm:"foreignKey:RepositoryID; constraint:OnDelete:CASCADE;"`
 	IssuesNearestToIssuesOtherRepositories []NearestIssuesModel       `gorm:"foreignKey:RepositoryIDNearestIssue; constraint:OnDelete:CASCADE;"`
 	NearestIRepositories                   []NearestRepositoriesModel `gorm:"foreignKey:RepositoryID; constraint:OnDelete:CASCADE;"`
+	//
+	IntersectionsIssues             []NumberIssueIntersectionsModel `gorm:"foreignKey:RepositoryID; constraint:OnDelete:CASCADE;"`
+	AsComparableIntersectionsIssues []NumberIssueIntersectionsModel `gorm:"foreignKey:ComparableRepositoryID; constraint:OnDelete:CASCADE;"`
 }
 
 type IssueModel struct {
@@ -69,4 +72,11 @@ type RepositoriesKeyWordsModel struct {
 	KeyWord      string `gorm:"not null; index:key_word,unique;"`
 	Position     int64
 	Repositories []byte `gorm:"not null;"`
+}
+
+type NumberIssueIntersectionsModel struct {
+	gorm.Model
+	RepositoryID           uint
+	ComparableRepositoryID uint
+	NumberIntersections    int `gorm:"not null;"`
 }
