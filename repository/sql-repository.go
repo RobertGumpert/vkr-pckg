@@ -159,7 +159,19 @@ func (s *SQLRepository) AddNearestIssues(nearest dataModel.NearestIssuesModel) e
 
 func (s *SQLRepository) GetIssueByID(issueId uint) (dataModel.IssueModel, error) {
 	var model dataModel.IssueModel
-	if err := s.storage.SqlDB.Where("id = ?", issueId).First(&model).Error; err != nil {
+	if err := s.storage.SqlDB.Where("id = ?", issueId).Find(&model).Error; err != nil {
+		return model, err
+	}
+	return model, nil
+}
+
+func (s *SQLRepository) GetIssuesOnlyGroupRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error) {
+	var(
+		model []dataModel.IssueModel
+		id = make([]uint, 0)
+	)
+	id = append(id, repositoryId...)
+	if err := s.storage.SqlDB.Where("repository_id IN ?", id).Find(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil

@@ -147,6 +147,18 @@ func TestAddFlow(t *testing.T) {
 		}
 	}
 	//
+	list, err = db.GetIssuesOnlyGroupRepositories(repositories[0].ID, repositories[1].ID)
+	if err != nil {
+		runtimeinfo.LogError(err)
+		t.Fatal()
+	}
+	for _, elem := range list {
+		runtimeinfo.LogInfo("ISSUE REPO: ", elem.RepositoryID)
+		if elem.RepositoryID != repositories[0].ID && elem.RepositoryID != repositories[1].ID {
+			t.Fatal("NOT WORKING")
+		}
+	}
+	//
 	err = db.CloseConnection()
 	if err != nil {
 		runtimeinfo.LogError(err)
