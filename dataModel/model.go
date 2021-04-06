@@ -78,5 +78,5 @@ type NumberIssueIntersectionsModel struct {
 	gorm.Model
 	RepositoryID           uint
 	ComparableRepositoryID uint
-	NumberIntersections    int `gorm:"not null;"`
+	NumberIntersections    float64        `gorm:"not null;"`
 }

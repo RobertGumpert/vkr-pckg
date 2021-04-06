@@ -46,6 +46,7 @@ type IRepository interface {
 	//
 	// ISSUE INTERSECTIONS
 	//
+	AddNumbersIntersections(intersections []dataModel.NumberIssueIntersectionsModel) error
 	AddNumberIntersections(intersection *dataModel.NumberIssueIntersectionsModel) error
 	GetNumberIntersectionsForRepository(repositoryID uint) ([]dataModel.NumberIssueIntersectionsModel, error)
 	GetNumberIntersectionsForPair(repositoryID, comparableRepositoryID uint) (dataModel.NumberIssueIntersectionsModel, error)

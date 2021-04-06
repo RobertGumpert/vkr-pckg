@@ -11,6 +11,20 @@ type SQLRepository struct {
 	storage *ApplicationStorageProvider
 }
 
+func (s *SQLRepository) AddNumbersIntersections(intersections []dataModel.NumberIssueIntersectionsModel) error {
+	tx := s.storage.SqlDB.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if err := tx.Create(&intersections).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
 func (s *SQLRepository) AddNumberIntersections(intersection *dataModel.NumberIssueIntersectionsModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {
@@ -95,7 +109,6 @@ func (s *SQLRepository) UpdateNearestRepositories(repositoryId uint, nearest dat
 	return nil
 }
 
-
 func (s *SQLRepository) GetRepositoryByName(name string) (dataModel.RepositoryModel, error) {
 	var repository dataModel.RepositoryModel
 	if err := s.storage.SqlDB.Where("name = ?", name).First(&repository).Error; err != nil {
@@ -113,9 +126,9 @@ func (s *SQLRepository) GetRepositoryByID(repositoryId uint) (dataModel.Reposito
 }
 
 func (s *SQLRepository) GetNearestRepositories(repositoryId uint) (dataModel.NearestRepositoriesJSON, error) {
-	var(
+	var (
 		repository dataModel.NearestRepositoriesModel
-		nearest dataModel.NearestRepositoriesJSON
+		nearest    dataModel.NearestRepositoriesJSON
 	)
 	if err := s.storage.SqlDB.Where("repository_id = ?", repositoryId).First(&repository).Error; err != nil {
 		return nearest, err
@@ -196,9 +209,9 @@ func (s *SQLRepository) GetIssueByID(issueId uint) (dataModel.IssueModel, error)
 }
 
 func (s *SQLRepository) GetIssuesOnlyGroupRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error) {
-	var(
+	var (
 		model []dataModel.IssueModel
-		id = make([]uint, 0)
+		id    = make([]uint, 0)
 	)
 	id = append(id, repositoryId...)
 	if err := s.storage.SqlDB.Where("repository_id IN ?", id).Find(&model).Error; err != nil {
@@ -208,9 +221,9 @@ func (s *SQLRepository) GetIssuesOnlyGroupRepositories(repositoryId ...uint) ([]
 }
 
 func (s *SQLRepository) GetIssuesBesidesGroupRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error) {
-	var(
+	var (
 		model []dataModel.IssueModel
-		id = make([]uint, 0)
+		id    = make([]uint, 0)
 	)
 	id = append(id, repositoryId...)
 	if err := s.storage.SqlDB.Where("repository_id NOT IN ?", id).First(&model).Error; err != nil {
@@ -250,7 +263,7 @@ func (s *SQLRepository) AddKeyWord(keyWord string, position int64, repositories 
 		return model, err
 	}
 	model = dataModel.RepositoriesKeyWordsModel{
-		KeyWord: keyWord,
+		KeyWord:      keyWord,
 		Repositories: bts,
 	}
 	tx := s.storage.SqlDB.Begin()
@@ -274,7 +287,7 @@ func (s *SQLRepository) UpdateKeyWord(keyWord string, position int64, repositori
 		return model, err
 	}
 	model = dataModel.RepositoriesKeyWordsModel{
-		KeyWord: keyWord,
+		KeyWord:      keyWord,
 		Repositories: bts,
 	}
 	tx := s.storage.SqlDB.Begin()
