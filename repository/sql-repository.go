@@ -11,14 +11,14 @@ type SQLRepository struct {
 	storage *ApplicationStorageProvider
 }
 
-func (s *SQLRepository) AddRepository(repository dataModel.RepositoryModel) error {
+func (s *SQLRepository) AddRepository(repository *dataModel.RepositoryModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
 		}
 	}()
-	if err := tx.Create(&repository).Error; err != nil {
+	if err := tx.Create(repository).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
@@ -115,14 +115,14 @@ func (s *SQLRepository) RewriteAllNearestRepositories(repositoryId []uint, model
 	return nil
 }
 
-func (s *SQLRepository) AddIssue(issue dataModel.IssueModel) error {
+func (s *SQLRepository) AddIssue(issue *dataModel.IssueModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {
 		if r := recover(); r != nil {
 			tx.Rollback()
 		}
 	}()
-	if err := tx.Create(&issue).Error; err != nil {
+	if err := tx.Create(issue).Error; err != nil {
 		tx.Rollback()
 		return err
 	}
@@ -160,6 +160,18 @@ func (s *SQLRepository) AddNearestIssues(nearest dataModel.NearestIssuesModel) e
 func (s *SQLRepository) GetIssueByID(issueId uint) (dataModel.IssueModel, error) {
 	var model dataModel.IssueModel
 	if err := s.storage.SqlDB.Where("id = ?", issueId).First(&model).Error; err != nil {
+		return model, err
+	}
+	return model, nil
+}
+
+func (s *SQLRepository) GetIssuesNotRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error) {
+	var(
+		model []dataModel.IssueModel
+		id = make([]uint, 0)
+	)
+	id = append(id, repositoryId...)
+	if err := s.storage.SqlDB.Where("repository_id NOT IN ?", id).First(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil

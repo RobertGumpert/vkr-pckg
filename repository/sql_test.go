@@ -3,7 +3,6 @@ package repository
 import (
 	"github.com/RobertGumpert/vkr-pckg/dataModel"
 	"github.com/RobertGumpert/vkr-pckg/runtimeinfo"
-	"strconv"
 	"testing"
 )
 
@@ -17,7 +16,6 @@ var storageProvider = SQLCreateConnection(
 	"5432",
 	"disable",
 )
-
 
 func connect() IRepository {
 	sqlRepository := NewSQLRepository(
@@ -68,7 +66,7 @@ func TestAddFlow(t *testing.T) {
 		},
 	}
 	//
-	err := db.AddRepository(repository)
+	err := db.AddRepository(&repository)
 	if err != nil {
 		runtimeinfo.LogError(err)
 		t.Fatal()
@@ -125,15 +123,28 @@ func TestAddFlow(t *testing.T) {
 	runtimeinfo.LogInfo(list)
 	//
 	err = db.AddNearestIssues(dataModel.NearestIssuesModel{
-		RepositoryID:   repository.ID,
-		IssueID:        issues1[0].ID,
-		NearestIssueID: issues2[0].ID,
-		CosineDistance: 75.9,
-		Intersections:  []string{"b"},
+		RepositoryID:             repository.ID,
+		IssueID:                  issues1[0].ID,
+		RepositoryIDNearestIssue: repositories[0].ID,
+		NearestIssueID:           issues2[0].ID,
+		CosineDistance:           75.9,
+		Intersections:            []string{"b"},
 	})
 	if err != nil {
 		runtimeinfo.LogError(err)
 		t.Fatal()
+	}
+	//
+	list, err = db.GetIssuesNotRepositories(repositories[0].ID, repositories[1].ID)
+	if err != nil {
+		runtimeinfo.LogError(err)
+		t.Fatal()
+	}
+	for _, elem := range list {
+		runtimeinfo.LogInfo("ISSUE REPO: ", elem.RepositoryID)
+		if elem.RepositoryID != repository.ID {
+			t.Fatal("NOT WORKING")
+		}
 	}
 	//
 	err = db.CloseConnection()
@@ -144,53 +155,52 @@ func TestAddFlow(t *testing.T) {
 	runtimeinfo.LogInfo("Ok")
 }
 
-func BenchmarkAddKeyWords(b *testing.B) {
-	b.ReportAllocs()
-	db := connect()
-	for i := 0; i < b.N; i++ {
-		inc := strconv.Itoa(i)
-		key := "Key" + inc
-		_, _ = db.AddKeyWord(
-			key,
-			dataModel.RepositoriesIncludeKeyWordsJSON{
-				Repositories: []dataModel.RepositoryModel{
-					{
-						Name: key,
-					},
-				},
-			},
-		)
-	}
-}
-
-func BenchmarkReadKeyWords(b *testing.B) {
-	b.ReportAllocs()
-	db := connect()
-	for i := 0; i < b.N; i++ {
-		inc := strconv.Itoa(i)
-		key := "Key" + inc
-		_, _ = db.GetKeyWord(
-			key,
-		)
-	}
-}
-
-func BenchmarkUpdateKeyWords(b *testing.B) {
-	b.ReportAllocs()
-	db := connect()
-	for i := 0; i < b.N; i++ {
-		inc := strconv.Itoa(i)
-		key := "Update Key" + inc
-		_, _ = db.UpdateKeyWord(
-			key,
-			dataModel.RepositoriesIncludeKeyWordsJSON{
-				Repositories: []dataModel.RepositoryModel{
-					{
-						Name: key,
-					},
-				},
-			},
-		)
-	}
-}
-
+//func BenchmarkAddKeyWords(b *testing.B) {
+//	b.ReportAllocs()
+//	db := connect()
+//	for i := 0; i < b.N; i++ {
+//		inc := strconv.Itoa(i)
+//		key := "Key" + inc
+//		_, _ = db.AddKeyWord(
+//			key,
+//			dataModel.RepositoriesIncludeKeyWordsJSON{
+//				Repositories: []dataModel.RepositoryModel{
+//					{
+//						Name: key,
+//					},
+//				},
+//			},
+//		)
+//	}
+//}
+//
+//func BenchmarkReadKeyWords(b *testing.B) {
+//	b.ReportAllocs()
+//	db := connect()
+//	for i := 0; i < b.N; i++ {
+//		inc := strconv.Itoa(i)
+//		key := "Key" + inc
+//		_, _ = db.GetKeyWord(
+//			key,
+//		)
+//	}
+//}
+//
+//func BenchmarkUpdateKeyWords(b *testing.B) {
+//	b.ReportAllocs()
+//	db := connect()
+//	for i := 0; i < b.N; i++ {
+//		inc := strconv.Itoa(i)
+//		key := "Update Key" + inc
+//		_, _ = db.UpdateKeyWord(
+//			key,
+//			dataModel.RepositoriesIncludeKeyWordsJSON{
+//				Repositories: []dataModel.RepositoryModel{
+//					{
+//						Name: key,
+//					},
+//				},
+//			},
+//		)
+//	}
+//}

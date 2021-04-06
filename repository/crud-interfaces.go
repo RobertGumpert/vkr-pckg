@@ -14,7 +14,7 @@ type IRepository interface {
 	//
 	// REPOSITORY:
 	//
-	AddRepository(repository dataModel.RepositoryModel) error
+	AddRepository(repository *dataModel.RepositoryModel) error
 	AddRepositories(repositories []dataModel.RepositoryModel) error
 	AddNearestRepositories(repositoryId uint, nearest dataModel.NearestRepositoriesJSON) error
 	UpdateNearestRepositories(repositoryId uint, nearest dataModel.NearestRepositoriesJSON) error
@@ -26,9 +26,10 @@ type IRepository interface {
 	//
 	// ISSUE
 	//
-	AddIssue(issue dataModel.IssueModel) error
+	AddIssue(issue *dataModel.IssueModel) error
 	AddIssues(issues []dataModel.IssueModel) error
 	AddNearestIssues(nearest dataModel.NearestIssuesModel) error
+	GetIssuesNotRepositories(repositoryId ...uint) ([]dataModel.IssueModel, error)
 	GetIssueByID(issueId uint) (dataModel.IssueModel, error)
 	GetIssueRepository(repositoryId uint) ([]dataModel.IssueModel, error)
 	GetNearestIssuesForIssue(issueId uint) ([]dataModel.NearestIssuesModel, error)
