@@ -202,7 +202,7 @@ func (s *SQLRepository) AddNearestIssues(nearest dataModel.NearestIssuesModel) e
 
 func (s *SQLRepository) GetIssueByID(issueId uint) (dataModel.IssueModel, error) {
 	var model dataModel.IssueModel
-	if err := s.storage.SqlDB.Where("id = ?", issueId).Find(&model).Error; err != nil {
+	if err := s.storage.SqlDB.Where("id = ?", issueId).First(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil
@@ -226,7 +226,7 @@ func (s *SQLRepository) GetIssuesBesidesGroupRepositories(repositoryId ...uint) 
 		id    = make([]uint, 0)
 	)
 	id = append(id, repositoryId...)
-	if err := s.storage.SqlDB.Where("repository_id NOT IN ?", id).First(&model).Error; err != nil {
+	if err := s.storage.SqlDB.Where("repository_id NOT IN ?", id).Find(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil
@@ -234,7 +234,7 @@ func (s *SQLRepository) GetIssuesBesidesGroupRepositories(repositoryId ...uint) 
 
 func (s *SQLRepository) GetIssueRepository(repositoryId uint) ([]dataModel.IssueModel, error) {
 	var model []dataModel.IssueModel
-	if err := s.storage.SqlDB.Where("repository_id = ?", repositoryId).First(&model).Error; err != nil {
+	if err := s.storage.SqlDB.Where("repository_id = ?", repositoryId).Find(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil
@@ -242,7 +242,7 @@ func (s *SQLRepository) GetIssueRepository(repositoryId uint) ([]dataModel.Issue
 
 func (s *SQLRepository) GetNearestIssuesForIssue(issueId uint) ([]dataModel.NearestIssuesModel, error) {
 	var model []dataModel.NearestIssuesModel
-	if err := s.storage.SqlDB.Where("issue_id = ?", issueId).First(&model).Error; err != nil {
+	if err := s.storage.SqlDB.Where("issue_id = ?", issueId).Find(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil
@@ -250,7 +250,7 @@ func (s *SQLRepository) GetNearestIssuesForIssue(issueId uint) ([]dataModel.Near
 
 func (s *SQLRepository) GetNearestIssuesForRepository(repositoryId uint) ([]dataModel.NearestIssuesModel, error) {
 	var model []dataModel.NearestIssuesModel
-	if err := s.storage.SqlDB.Where("repository_id = ?", repositoryId).First(&model).Error; err != nil {
+	if err := s.storage.SqlDB.Where("repository_id = ?", repositoryId).Find(&model).Error; err != nil {
 		return model, err
 	}
 	return model, nil
