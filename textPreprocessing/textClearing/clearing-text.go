@@ -2,7 +2,6 @@ package textClearing
 
 import (
 	"errors"
-	"fmt"
 	"github.com/aaaton/golem/v4"
 	"github.com/aaaton/golem/v4/dicts/en"
 	"github.com/bbalet/stopwords"
@@ -79,7 +78,6 @@ func ClearMarkdown(str *string) {
 	clearText = strings.ReplaceAll(clearText, "\n", " !*! ")
 	clearByRegex(`(?i)<code>(.*?)</code>`, &clearText)
 	clearText = strip.StripTags(clearText)
-	fmt.Println(clearText)
 	clearText = strings.ReplaceAll(clearText, " !*! ", "\n")
 	slice := ToSlice(&clearText)
 	s := make([]string, 0)
