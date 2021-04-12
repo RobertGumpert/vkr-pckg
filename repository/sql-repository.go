@@ -200,6 +200,20 @@ func (s *SQLRepository) AddNearestIssues(nearest dataModel.NearestIssuesModel) e
 	return tx.Commit().Error
 }
 
+func (s *SQLRepository) AddListNearestIssues(nearest []dataModel.NearestIssuesModel) error {
+	tx := s.storage.SqlDB.Begin()
+	defer func() {
+		if r := recover(); r != nil {
+			tx.Rollback()
+		}
+	}()
+	if err := tx.Create(&nearest).Error; err != nil {
+		tx.Rollback()
+		return err
+	}
+	return tx.Commit().Error
+}
+
 func (s *SQLRepository) GetIssueByID(issueId uint) (dataModel.IssueModel, error) {
 	var model dataModel.IssueModel
 	if err := s.storage.SqlDB.Where("id = ?", issueId).First(&model).Error; err != nil {
