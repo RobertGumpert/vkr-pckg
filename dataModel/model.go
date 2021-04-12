@@ -44,7 +44,7 @@ type IssueModel struct {
 	URL                              string               `gorm:"not null;"`
 	Title                            string               `gorm:"not null;"`
 	State                            string               `gorm:"not null;"`
-	Body                             string               `gorm:"not null;"`
+	Body                             string               `gorm:"not null;size:1000000"`
 	TitleDictionary                  pq.StringArray       `gorm:"not null; type:text[];"`
 	TitleFrequencyJSON               []byte               `gorm:"not null;"`
 	NearestIssuesOtherRepositories   []NearestIssuesModel `gorm:"foreignKey:IssueID; constraint:OnDelete:CASCADE;"`
