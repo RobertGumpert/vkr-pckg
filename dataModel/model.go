@@ -57,8 +57,15 @@ type NearestIssuesModel struct {
 	IssueID                  uint
 	NearestIssueID           uint
 	RepositoryIDNearestIssue uint
-	CosineDistance           float64        `gorm:"not null;"`
-	Intersections            pq.StringArray `gorm:"not null; type:text[];"`
+	//
+	TitleNumberIntersections float64
+	TitleCosineDistance      float64
+	BodyNumberIntersections  float64
+	BodyCosineDistance       float64
+	Rank                     float64
+	//
+	CosineDistance float64        `gorm:"not null;"`
+	Intersections  pq.StringArray `gorm:"not null; type:text[];"`
 }
 
 type NearestRepositoriesModel struct {
@@ -78,5 +85,5 @@ type NumberIssueIntersectionsModel struct {
 	gorm.Model
 	RepositoryID           uint
 	ComparableRepositoryID uint
-	NumberIntersections    float64        `gorm:"not null;"`
+	NumberIntersections    float64 `gorm:"not null;"`
 }
