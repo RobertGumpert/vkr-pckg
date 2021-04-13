@@ -10,7 +10,7 @@ type RepositoriesIncludeKeyWordsJSON struct {
 }
 
 type NearestRepositoriesJSON struct {
-	Repositories []RepositoryModel `json:"repositories"`
+	Repositories map[uint]float64 `json:"repositories"`
 }
 
 type TitleFrequencyJSON struct {
