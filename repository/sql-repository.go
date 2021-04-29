@@ -186,6 +186,14 @@ func (s *SQLRepository) AddIssues(issues []dataModel.IssueModel) error {
 	return tx.Commit().Error
 }
 
+func (s *SQLRepository) GetNearestIssuesForPairRepositories(mainRepositoryID, secondRepositoryID uint) ([]dataModel.NearestIssuesModel, error) {
+	var model []dataModel.NearestIssuesModel
+	if err := s.storage.SqlDB.Where("repository_id = ? AND repository_id_nearest_issue = ?", mainRepositoryID, secondRepositoryID).Find(&model).Error; err != nil {
+		return model, err
+	}
+	return model, nil
+}
+
 func (s *SQLRepository) AddNearestIssues(nearest dataModel.NearestIssuesModel) error {
 	tx := s.storage.SqlDB.Begin()
 	defer func() {

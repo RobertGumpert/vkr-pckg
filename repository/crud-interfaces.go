@@ -36,6 +36,7 @@ type IRepository interface {
 	GetIssueRepository(repositoryId uint) ([]dataModel.IssueModel, error)
 	GetNearestIssuesForIssue(issueId uint) ([]dataModel.NearestIssuesModel, error)
 	GetNearestIssuesForRepository(repositoryId uint) ([]dataModel.NearestIssuesModel, error)
+	GetNearestIssuesForPairRepositories(mainRepositoryID, secondRepositoryID uint) ([]dataModel.NearestIssuesModel, error)
 	//
 	// KEYWORDS:
 	//
