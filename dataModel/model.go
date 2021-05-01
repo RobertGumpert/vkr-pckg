@@ -1,8 +1,8 @@
 package dataModel
 
 import (
-	"github.com/lib/pq"
-	"gorm.io/gorm"
+"github.com/lib/pq"
+"gorm.io/gorm"
 )
 
 type RepositoriesIncludeKeyWordsJSON struct {
@@ -86,4 +86,7 @@ type NumberIssueIntersectionsModel struct {
 	RepositoryID           uint
 	ComparableRepositoryID uint
 	NumberIntersections    float64 `gorm:"not null;"`
+	//
+	RepositoryCountIssues int64 `gorm:"not null;"`
+	CountNearestPairs     int64 `gorm:"not null;"`
 }
